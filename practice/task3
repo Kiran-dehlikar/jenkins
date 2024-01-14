@@ -15,13 +15,11 @@ pipeline {
     parameters {
       string defaultValue: 'World', name: 'name'
     }
-    environment {
-      token = credentials('mykey')
-      }
     options {
       timeout(1)
       disableConcurrentBuilds()
     }
+    
     triggers {
       cron 'H/5 * * * *'
     }
@@ -37,9 +35,19 @@ pipeline {
             echo "Hello ${params.name}"
             // sh 'sleep 1m'
           }
-          steps { echo("My File: ${credentials('mykey')}") }
           input {
               message 'Want to fail the pileline'
+            }
+        }
+        stage('Print Credential') {
+            steps { 
+                script {
+                    String text
+                    withCredentials([file(credentialsId: 'secret', variable: 'FILE')]) {
+                        text = readFile(FILE)
+                    }
+                    echo "${text}"
+                }
             }
         }
     }
