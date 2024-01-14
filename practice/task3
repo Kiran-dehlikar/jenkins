@@ -60,3 +60,5 @@ pipeline {
         }
     }
 }
+
+Ref : https://gist.github.com/briceburg/67b35e4994d1a162355171e7ba859384
