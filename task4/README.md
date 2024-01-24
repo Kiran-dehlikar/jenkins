@@ -24,7 +24,11 @@
 
 ## Under configuration enter the below pipeline script.
 
-pipeline {
+## Pipeline Script
+
+
+```bash
+  pipeline {
     agent any
     stages {
         stage('Code clone and compile') {
@@ -46,11 +50,11 @@ pipeline {
                 sh "mvn pmd:pmd"
             }
         }
-        //stage('Dependency check') {
-        //    steps {
-        //        sh "mvn org.owasp:dependency-check-maven:9.0.8:check"
-        //    }
-        //}
+        stage('Dependency check') {
+            steps {
+                sh "mvn org.owasp:dependency-check-maven:9.0.8:check"
+            }
+        }
         stage('Code Coverage') {
             steps {
                 sh "mvn jacoco:prepare-agent"
@@ -88,7 +92,7 @@ pipeline {
         }
     }
 }
-
+```
 
 ![Screenshot from 2024-01-23 20-04-36](https://github.com/Kiran-dehlikar/test/assets/104997588/2d9c3eb5-b281-4948-a058-eace9b9abcef)
 
